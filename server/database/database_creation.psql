@@ -1,0 +1,72 @@
+CREATE DATABASE clinicaMedica;
+
+CREATE TABLE Agenda (
+  idAgenda INT NOT NULL,
+  data DATE NOT NULL,
+  horario DATE NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  telefone VARCHAR(12) NOT NULL,
+  medico_id INT NOT NULL,
+  PRIMARY KEY (idAgenda),
+  CONSTRAINT fk_Agenda_Medico
+    FOREIGN KEY (medico_id)
+    REFERENCES Medico (idMedico)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE Pessoa (
+  idPessoa INT NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  telefone VARCHAR(12) NOT NULL,
+  cep VARCHAR(7) NOT NULL,
+  logradouro VARCHAR(100) NOT NULL,
+  bairro VARCHAR(45) NOT NULL,
+  cidade VARCHAR(45) NOT NULL,
+  estado VARCHAR(30) NOT NULL,
+  PRIMARY KEY (idPessoa));
+
+CREATE TABLE Base_Enderecos (
+  idBase_Enderecos INT NOT NULL,
+  cep VARCHAR(7) NULL,
+  logradouro VARCHAR(45) NULL,
+  bairro VARCHAR(45) NULL,
+  cidade VARCHAR(45) NULL,
+  estado VARCHAR(30) NULL,
+  PRIMARY KEY (idBase_Enderecos));
+
+CREATE TABLE Funcionario (
+  idFuncionario INT NOT NULL,
+  dataContrato DATE NOT NULL,
+  salario FLOAT NOT NULL,
+  senha VARCHAR(45) NULL,
+  PRIMARY KEY (idFuncionario),
+  CONSTRAINT fk_Funcionario_Pessoa
+    FOREIGN KEY (idFuncionario)
+    REFERENCES Pessoa (idPessoa)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE Paciente (
+  idPaciente INT NOT NULL,
+  peso FLOAT NOT NULL,
+  altura FLOAT NOT NULL,
+  tipoSanguineo VARCHAR(3) NULL,
+  PRIMARY KEY (idPaciente),
+  CONSTRAINT fk_Paciente_Pessoa1
+    FOREIGN KEY (idPaciente)
+    REFERENCES Pessoa (idPessoa)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE Medico (
+  idMedico INT NOT NULL,
+  especialidade VARCHAR(45) NOT NULL,
+  crm INT NOT NULL,
+  PRIMARY KEY (idMedico),
+    CONSTRAINT fk_Medico_Funcionario
+    FOREIGN KEY (idMedico)
+    REFERENCES Funcionario (idFuncionario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
