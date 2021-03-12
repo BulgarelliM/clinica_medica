@@ -35,7 +35,7 @@ const getPessoa = (req, resp) => {
             console.log('Erro!!!')
         }
         resp.status(200).json(res.rows)
-        pool.end();
+        // pool.end();
     })
 }
 
