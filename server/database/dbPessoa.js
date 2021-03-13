@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const dbConnection = require('../config/database')
 
-const getPessoa = (req, resp) => {
+/* const getPessoa = (req, resp) => {
     pool.query('SELECT * FROM pessoa', (err, res) => {
         if (err) {
             console.log('Erro!!!')
@@ -39,16 +39,16 @@ const atualizaPessoa = (req, resp) => {
     )
 }
 
-/* const removePessoa = (request, response) => {
-const id = parseInt(request.body.idpessoa)
+const removePessoa = (request, response) => {
+    const id = parseInt(request.body.idpessoa)
 
-pool.query('DELETE FROM pessoa WHERE id = $1', [id], (error, results) => {
-    if (error) {
-    throw error
-    }
-    response.status(200).send(`User deleted with ID: ${id}`)
-})
+    pool.query('DELETE FROM pessoa WHERE id = $1', [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).send(`User deleted with ID: ${id}`)
+    })
 }
-*/
+ */
 
-module.exports = { getPessoa, atualizaPessoa, getPessoaId }
+// module.exports = { getPessoa, atualizaPessoa, getPessoaId, remPessoaId }
