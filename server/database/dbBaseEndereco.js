@@ -23,7 +23,7 @@ const getEnderecoByCEP = (request, response) => {
     })
 }
 
-const createEndereco = (request, response) => {
+const setEndereco = (request, response) => {
     const { cep, logradouro, bairro, cidade, estado } = request.body
 
     const field = 'cep, logradouro, bairro, cidade, estado'
@@ -37,7 +37,7 @@ const createEndereco = (request, response) => {
         })
 }
 
-const atualizaEndereco = (request, response) => {
+const updateEndereco = (request, response) => {
     const { idBase_Enderecos, cep, logradouro, bairro } = request.body
 
     pool.query(
@@ -52,4 +52,4 @@ const atualizaEndereco = (request, response) => {
     )
 }
 
-module.exports = {getEnderecos, getEnderecoByCEP, atualizaEndereco, createEndereco}
+module.exports = {getEnderecos, getEnderecoByCEP, updateEndereco, setEndereco}

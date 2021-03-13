@@ -19,41 +19,45 @@ app.use(
 
 app.use('/', router)
 
-router
-    .route('/pessoa')
-    .get(dbPessoa.getPessoa)
-    .get(dbPessoa.getPessoaId)
-    .post(dbPessoa.setFuncionario)
-    .put(dbPessoa.atualizaPessoa)
 
 router
     .route('/paciente')
     .get(dbPaciente.getPaciente)
     .post(dbPaciente.setPaciente)
-    .put(dbPaciente.atualizaPaciente)
+//    .put(dbPaciente.updatePaciente)
 
 router
     .route('/medico')
     .get(dbMedico.getMedico)
     .post(dbMedico.setMedico)
-    /* 
-    router
-        .route('/funcionario')
-        .get(dbFuncionario.getFuncionario)
-        .post(dbFuncionario.setFuncionario)
-        .put(dbFuncionario.atualizaFuncionario)
+//    .put(dbMedico.updateMedico)
 
-    router
-        .route('/endereco')
-        .get(dbBaseEndereco.getEndereco)
-        .post(dbBaseEndereco.setEndereco)
-        .put(dbBaseEndereco.atualizaEndereco)
+router
+    .route('/funcionario')
+    .get(dbFuncionario.getFuncionario)
+    .post(dbFuncionario.setFuncionario)
+    .put(dbFuncionario.updateFuncionario)
 
-    router
-        .route('/agenda')
-        .get(dbAgenda.getAgenda)
-        .post(dbAgenda.setAgenda)
-        .put(dbAgenda.atualizaAgenda) */
+router
+    .route('/endereco')
+    .get(dbBaseEndereco.getEnderecos)
+    .get(dbBaseEndereco.getEnderecoByCEP)
+    .post(dbBaseEndereco.setEndereco)
+    .put(dbBaseEndereco.updateEndereco)
+
+/*
+router
+.route('/agenda')
+.get(dbAgenda.getAgenda)
+.post(dbAgenda.setAgenda)
+.put(dbAgenda.atualizaAgenda) */
+
+/* router
+    .route('/pessoa')
+    .get(dbPessoa.getPessoa)
+    .get(dbPessoa.getPessoaId)
+   // .post(dbPessoa.setFuncionario)
+    .put(dbPessoa.atualizaPessoa) */
 
 // listen for requests on port 8000
 const port = 8000
