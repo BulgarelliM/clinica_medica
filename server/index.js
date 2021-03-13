@@ -15,11 +15,12 @@ app.use(
 app.use('/', router)
 
 router
-    .route('/')
+    .route('/pessoa')
     .get(dbPessoa.getPessoa)
-    //.get(dbPessoa.getPessoaId)
-    .post(dbPessoa.setPessoa)
+    .get(dbPessoa.getPessoaId)
+    .post(dbPessoa.setFuncionario)
     .put(dbPessoa.atualizaPessoa)
+
 
 // listen for requests on port 8000
 const port = 8000
