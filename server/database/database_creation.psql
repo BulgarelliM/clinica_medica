@@ -1,13 +1,13 @@
 CREATE DATABASE clinicaMedica;
 
 CREATE TABLE Agenda (
-  idAgenda SERIAL,
+  idAgenda VARCHAR(4)  null,
   data DATE NOT NULL,
   horario DATE NOT NULL,
   nome VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
   telefone VARCHAR(12) NOT NULL,
-  medico_id INT NOT NULL,
+  medico_id VARCHAR(4) NOT NULL,
   PRIMARY KEY (idAgenda),
   CONSTRAINT fk_Agenda_Medico
     FOREIGN KEY (medico_id)
@@ -16,7 +16,7 @@ CREATE TABLE Agenda (
     ON UPDATE NO ACTION);
 
 CREATE TABLE Pessoa (
-  idPessoa SERIAL,
+  idPessoa VARCHAR(4),
   nome VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
   telefone VARCHAR(12) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE Base_Enderecos (
   PRIMARY KEY (idBase_Enderecos));
 
 CREATE TABLE Funcionario (
-  idFuncionario SERIAL,
+  idFuncionario VARCHAR(4)  null,
   dataContrato DATE NOT NULL,
   salario FLOAT NOT NULL,
   senha VARCHAR(45) NULL,
@@ -49,7 +49,7 @@ CREATE TABLE Funcionario (
     ON UPDATE NO ACTION);
 
 CREATE TABLE Paciente (
-  idPaciente SERIAL,
+  idPaciente varchar(4) null,
   peso FLOAT NOT NULL,
   altura FLOAT NOT NULL,
   tipoSanguineo VARCHAR(3) NULL,
@@ -61,7 +61,7 @@ CREATE TABLE Paciente (
     ON UPDATE NO ACTION);
 
 CREATE TABLE Medico (
-  idMedico SERIAL,
+  idMedico VARCHAR(4)  null,
   especialidade VARCHAR(45) NOT NULL,
   crm INT NOT NULL,
   PRIMARY KEY (idMedico),
