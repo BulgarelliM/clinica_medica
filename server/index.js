@@ -22,7 +22,8 @@ app.use('/', router)
 router
     .route('/pessoa')
     .get(dbPessoa.getPessoa)
-    .post(dbPessoa.setPessoa)
+    .get(dbPessoa.getPessoaId)
+    .post(dbPessoa.setFuncionario)
     .put(dbPessoa.atualizaPessoa)
 
 router
