@@ -2,8 +2,9 @@ const bodyParser = require('body-parser')
 const dbConnection = require('../config/database')
 const genID = require('../api/generateId')
 
+
 const getPaciente = (req, resp) => {
-    const query = 'SELECT * FROM paciente pac INNER JOIN pessoa p ON pac.idpaciente = p.idpessoa,1 ORDER BY pac.idpaciente ASC'
+    const query = 'SELECT * FROM paciente pac INNER JOIN pessoa p ON pac.idpaciente = p.idpessoa ORDER BY pac.idpaciente ASC;'
     pool.query(query, (err, res) => {
         if (err) {
             console.log('Erro!!!')
@@ -19,26 +20,24 @@ const setPaciente = async (req, resp) => {
         //if (shouldAbort(err)) return
         const field = 'idpessoa, nome, email, telefone, cep, logradouro, bairro, cidade, estado'
         const values = '$1, $2, $3, $4, $5, $6, $7, $8, $9'
-        pool.query(`INSERT INTO pessoa (${field}) VALUES (${values})`,
-            [cod, nome, email, telefone, cep, logradouro, bairro, cidade, estado], (err, res) => {
+        pool.query(`INSERT INTO pessoa (${field}) VALUES (${values})`, [cod, nome, email, telefone, cep, logradouro, bairro, cidade, estado], (err, res) => {
+            if (err) {
+                throw err
+            }
+            const fieldFunc = 'idpaciente, peso, altura, tiposanguineo'
+            const valuesFunc = '$1, $2, $3, $4'
+            pool.query(`INSERT INTO paciente (${fieldFunc}) VALUES (${valuesFunc})`, [cod, peso, altura, tiposanguineo], (err, res) => {
                 if (err) {
                     throw err
                 }
-                const fieldFunc = 'idpaciente, peso, altura, tiposanguineo'
-                const valuesFunc = '$1, $2, $3, $4'
-                pool.query(`INSERT INTO paciente (${fieldFunc}) VALUES (${valuesFunc})`,
-                    [cod, peso, altura, tiposanguineo], (err, res) => {
-                        if (err) {
-                            throw err
-                        }
-                        pool.query('COMMIT', err => {
-                            if (err) {
-                                console.error('Error committing transaction', err.stack)
-                            }
-                        })
-                    })
-                resp.status(200).send(`Paciente adicionado com sucesso.`)
+                pool.query('COMMIT', err => {
+                    if (err) {
+                        console.error('Error committing transaction', err.stack)
+                    }
+                })
             })
+            resp.status(200).send(`Paciente adicionado com sucesso.`)
+        })
     })
 }
 
