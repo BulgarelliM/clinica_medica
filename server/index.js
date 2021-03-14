@@ -40,7 +40,7 @@ router
     .get(dbBaseEndereco.getEnderecos)
     .post(dbBaseEndereco.setEndereco)
     .put(dbBaseEndereco.updateEndereco)
-    
+
 router
     .route('/endereco/cep')
     .get(dbBaseEndereco.getEnderecoByCEP)

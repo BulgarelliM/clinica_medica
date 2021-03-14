@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const dbConnection = require('../config/database')
+const genID = require('../api/generateId')
 
 const getPaciente = (req, resp) => {
     const query = 'SELECT * FROM paciente pac INNER JOIN pessoa p ON pac.idpaciente = p.idpessoa,1 ORDER BY pac.idpaciente ASC'
@@ -11,8 +12,9 @@ const getPaciente = (req, resp) => {
     })
 }
 
-const setPaciente = (req, resp) => {
-    const { cod, nome, email, telefone, cep, logradouro, bairro, cidade, estado, peso, altura, tiposanguineo } = req.body
+const setPaciente = async (req, resp) => {
+    const cod = await genID.verifyPaciente()
+    const { nome, email, telefone, cep, logradouro, bairro, cidade, estado, peso, altura, tiposanguineo } = req.body
     pool.query('BEGIN', err => {
         //if (shouldAbort(err)) return
         const field = 'idpessoa, nome, email, telefone, cep, logradouro, bairro, cidade, estado'
