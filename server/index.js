@@ -24,6 +24,14 @@ router
     .put(dbPaciente.updatePaciente)
 
 router
+    .route('/especialidade')
+    .get(dbMedico.getEspecialidades)
+
+router
+    .route('/medicoporespecialidade')
+    .get(dbMedico.getMedicoPorEspecialidade)
+
+router
     .route('/funcionario')
     .get(dbFuncionario.getFuncionario)
     .post(dbFuncionario.setFuncionario)
@@ -40,23 +48,28 @@ router
     .get(dbBaseEndereco.getEnderecos)
     .post(dbBaseEndereco.setEndereco)
     .put(dbBaseEndereco.updateEndereco)
+
+router
+    .route('/agendaDoMedico')
+    .get(dbAgenda.getHorariosOcupados)
+
+router
+    .route('/agenda')
+    .post(dbAgenda.setAgenda)
+    .put(dbAgenda.atualizaAgenda)
+
+router
+    .route('/listaConsultaPaciente')
+    .get(dbAgenda.getConsultasDoPaciente)
+
+router
+    .route('/listaTodasConsultas')
+    .get(dbAgenda.getAgendamentosPacientes)
     
 router
     .route('/endereco/cep')
     .get(dbBaseEndereco.getEnderecoByCEP)
 
-/* router
-    .route('/agenda')
-    .get(dbAgenda.getAgenda)
-    .post(dbAgenda.setAgenda)
-    .put(dbAgenda.atualizaAgenda) */
-
-/* router
-    .route('/pessoa')
-    .get(dbPessoa.getPessoa)
-    .get(dbPessoa.getPessoaId)
-    .post(dbPessoa.setFuncionario)
-    .put(dbPessoa.atualizaPessoa) */
 
 // listen for requests on port 8000
 const port = 8000
