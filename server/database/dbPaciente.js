@@ -1,9 +1,7 @@
-const express = require('express')
 const bodyParser = require('body-parser')
-const app = express()
 const dbConnection = require('../config/database')
 
-// Fixed query 13/03 - ok
+
 const getPaciente = (req, resp) => {
     const query = 'SELECT * FROM paciente pac INNER JOIN pessoa p ON pac.idpaciente = p.idpessoa ORDER BY pac.idpaciente ASC;'
     pool.query(query, (err, res) => {
@@ -41,22 +39,32 @@ const setPaciente = (req, resp) => {
     })
 }
 
-const atualizaPaciente = (request, response) => {
-    const {
-        idPaciente,
-        peso,
-        altura
-    } = request.body
+const updatePaciente = (req, resp) => {
+    const { cod, nome, email, telefone, cep, logradouro, bairro, cidade, estado, peso, altura, tiposanguineo } = req.body
+    
+    pool.query('BEGIN', err => {
+        const query = 'UPDATE pessoa SET nome = $1, email = $2, telefone = $3, ' +
+        'cep = $4, logradouro = $5, bairro = $6, cidade = $7, estado = $8 WHERE idpessoa = $9'
+        
+        pool.query(query, [nome, email, telefone, cep, logradouro, bairro, cidade, estado, cod], (err, res) => {
+            if (err) {
+                throw err
+            }    
+            const queryPac = 'UPDATE paciente SET peso = $1, altura = $2, tiposanguineo = $3 WHERE idpaciente = $4'
 
-    pool.query(
-        'UPDATE Paciente SET peso = $2, altura = $3 WHERE idPaciente = $1', [idPaciente, peso, altura],
-        (error, results) => {
-            if (error) {
-                throw error
-            }
-            response.status(200).send(`Paciente modified`)
-        }
-    )
+            pool.query(queryPac, [peso, altura, tiposanguineo, cod], (err, res) => {
+                if (err) {
+                    throw err
+                }
+                pool.query('COMMIT', err => {
+                    if (err) {
+                        console.error('Error committing transaction', err.stack)
+                    }
+                })
+            })
+        })
+        resp.status(200).send(`Alterações realizadas com sucesso.`)
+    })
 }
 
-module.exports = { setPaciente, getPaciente, atualizaPaciente }
+module.exports = { setPaciente, getPaciente, updatePaciente }

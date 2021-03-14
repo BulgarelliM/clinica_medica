@@ -2,7 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const router = express.Router()
-const dbPessoa = require('./database/dbPessoa')
 const dbPaciente = require('./database/dbPaciente')
 const dbMedico = require('./database/dbMedico')
 const dbFuncionario = require('./database/dbFuncionario')
@@ -16,21 +15,13 @@ app.use(
         extended: true,
     })
 )
-
 app.use('/', router)
-
 
 router
     .route('/paciente')
     .get(dbPaciente.getPaciente)
     .post(dbPaciente.setPaciente)
-    //    .put(dbPaciente.updatePaciente)
-
-router
-    .route('/medico')
-    .get(dbMedico.getMedico)
-    .post(dbMedico.setMedico)
-    //    .put(dbMedico.updateMedico)
+    .put(dbPaciente.updatePaciente)
 
 router
     .route('/especialidade')
@@ -47,12 +38,16 @@ router
     .put(dbFuncionario.updateFuncionario)
 
 router
+    .route('/medico')
+    .get(dbMedico.getMedico)
+    .post(dbMedico.setMedico)
+    .put(dbMedico.updateMedico)
+
+router
     .route('/endereco')
     .get(dbBaseEndereco.getEnderecos)
-    .get(dbBaseEndereco.getEnderecoByCEP)
     .post(dbBaseEndereco.setEndereco)
     .put(dbBaseEndereco.updateEndereco)
-
 
 router
     .route('/agendaDoMedico')
@@ -70,12 +65,11 @@ router
 router
     .route('/listaTodasConsultas')
     .get(dbAgenda.getAgendamentosPacientes)
-    /* router
-        .route('/pessoa')
-        .get(dbPessoa.getPessoa)
-        .get(dbPessoa.getPessoaId)
-       // .post(dbPessoa.setFuncionario)
-        .put(dbPessoa.atualizaPessoa) */
+    
+router
+    .route('/endereco/cep')
+    .get(dbBaseEndereco.getEnderecoByCEP)
+
 
 // listen for requests on port 8000
 const port = 8000

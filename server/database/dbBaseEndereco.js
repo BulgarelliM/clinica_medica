@@ -15,6 +15,7 @@ const getEnderecos = (request, response) => {
 
 const getEnderecoByCEP = (request, response) => {
     const cep = request.body.cep
+    
     pool.query('select * from base_enderecos where CEP = $1', [cep], (err, res) => {
         if (err) {
             console.log("Erro ao acessar tabela Base de Enderecos: " + err)
