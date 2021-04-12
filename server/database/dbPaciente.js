@@ -14,7 +14,7 @@ const getPaciente = (req, resp) => {
 }
 
 const setPaciente = async (req, resp) => {
-    const cod = await genID.verifyPaciente()
+    const cod = await genID.idPaciente()
     const { nome, email, telefone, cep, logradouro, bairro, cidade, estado, peso, altura, tiposanguineo } = req.body
     pool.query('BEGIN', err => {
         //if (shouldAbort(err)) return
