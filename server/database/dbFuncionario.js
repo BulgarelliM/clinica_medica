@@ -11,6 +11,17 @@ const getFuncionario = (req, resp) => {
         resp.status(200).json(res.rows)
     })
 }
+const login = (req, resp) => {
+    const {user, senha } = req.body
+    const query = 'SELECT * FROM funcionario f INNER JOIN pessoa p ON f.idfuncionario = p.idpessoa WHERE p.email = $1 AND f.senha = $2'
+    
+    pool.query(query, [user,senha], (err, res) => {
+        if (err) {
+            console.log(err)
+        }
+        resp.status(200).json(res.rows)
+    })
+}
 
 const setFuncionario = async (req, resp) => {
     const cod = await genID.idFuncionario()
@@ -72,4 +83,4 @@ const updateFuncionario = (req, resp) => {
     })
 }
 
-module.exports = { setFuncionario, getFuncionario, updateFuncionario }
+module.exports = { setFuncionario,login, getFuncionario, updateFuncionario }

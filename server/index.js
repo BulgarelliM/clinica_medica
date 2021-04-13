@@ -36,7 +36,9 @@ router
     .get(dbFuncionario.getFuncionario)
     .post(dbFuncionario.setFuncionario)
     .put(dbFuncionario.updateFuncionario)
-
+router
+    .route("/logar")
+    .post(dbFuncionario.login)
 router
     .route('/medico')
     .get(dbMedico.getMedico)
@@ -68,7 +70,7 @@ router
     
 router
     .route('/endereco/cep')
-    .get(dbBaseEndereco.getEnderecoByCEP)
+    .post(dbBaseEndereco.getEnderecoByCEP)
 
 
 // listen for requests on port 8000
