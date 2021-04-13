@@ -75,7 +75,7 @@ const getConsultasDoPaciente = (req, resp) => {
 
 // added 13/03 - OK
 const getAgendamentosPacientes = (req, resp) => {
-    const query = `select a.data as DIA, a.horario as HORA, a.nome as PACIENTE, m.especialidade, p.nome as MEDICO from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.medico_id = m.idmedico ORDER BY a.data ASC;`
+    const query = `select a.data as DIA, a.horario as HORA, a.nome as PACIENTE, m.especialidade, p.nome as MEDICO, a.email as EMAIL, a.telefone as TELEFONE from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.medico_id = m.idmedico ORDER BY a.data ASC;`
     pool.query(query, (err, res) => {
         if (err) {
             throw err
