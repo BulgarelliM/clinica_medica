@@ -32,4 +32,15 @@ const idPaciente = async () => {
     return ID
 }
 
-module.exports = { idFuncionario, idMedico, idPaciente }
+const idAgenda = async () => {
+    const query = 'SELECT a.idAgenda FROM Agenda a WHERE substring(a.idAgenda,1,1) = \'a\' ORDER BY a.idAgenda DESC LIMIT 1';
+    const resp = await pool.query(query)
+    
+    if(resp.rows.length==0){
+        return "a01"
+    }
+    let ID = 'a' + pad(parseInt(resp.rows[0].idagenda.substring(1, resp.length)), 2).toString()
+    return ID
+}
+
+module.exports = { idFuncionario, idMedico, idPaciente,idAgenda }

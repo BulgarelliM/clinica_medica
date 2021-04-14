@@ -2,11 +2,12 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const dbConnection = require('../config/database')
-
+const genID = require('../api/generateId')
 // fixed
-const setAgenda = (request, response) => {
+const  setAgenda = async (request, response) => {
+
+    const cod = await genID.idAgenda()
     const {
-        idAgenda,
         data,
         horario,
         nome,
@@ -17,7 +18,7 @@ const setAgenda = (request, response) => {
 
     const field = 'idAgenda, data, horario, nome, email, telefone, medico_id'
     const values = '$1, $2, $3, $4, $5, $6, $7'
-    pool.query(`INSERT INTO agenda (${field}) VALUES (${values})`, [idAgenda, data, horario, nome, email, telefone, medico_id], (err, results) => {
+    pool.query(`INSERT INTO agenda (${field}) VALUES (${values})`, [cod, data, horario, nome, email, telefone, medico_id], (err, results) => {
         if (err) {
             throw err
         }
@@ -64,7 +65,7 @@ const getConsultasDoPaciente = (req, resp) => {
     const {
         nome
     } = req.body
-    const query = `select a.data as DIA, a.horario as HORA, m.especialidade, p.nome from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.nome = '${nome}' and a.medico_id = m.idmedico ORDER BY a.data ASC;`
+    const query = `select a.idAgenda,a.data as DIA, a.horario as HORA, m.especialidade, p.nome from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.nome = '${nome}' and a.medico_id = m.idmedico ORDER BY a.data ASC;`
     pool.query(query, (err, res) => {
         if (err) {
             throw err
@@ -75,7 +76,7 @@ const getConsultasDoPaciente = (req, resp) => {
 
 // added 13/03 - OK
 const getAgendamentosPacientes = (req, resp) => {
-    const query = `select a.data as DIA, a.horario as HORA, a.nome as PACIENTE, m.especialidade,m.idmedico, p.nome as MEDICO, a.email as EMAIL, a.telefone as TELEFONE from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.medico_id = m.idmedico ORDER BY a.data ASC;`
+    const query = `select a.idAgenda,a.data as DIA, a.horario as HORA, a.nome as PACIENTE, m.especialidade,m.idmedico, p.nome as MEDICO, a.email as EMAIL, a.telefone as TELEFONE from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.medico_id = m.idmedico ORDER BY a.data ASC;`
     pool.query(query, (err, res) => {
         if (err) {
             throw err
