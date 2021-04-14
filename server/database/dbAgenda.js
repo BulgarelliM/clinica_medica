@@ -50,7 +50,7 @@ const getHorariosOcupados = (req, resp) => {
         medico
     } = req.body
     console.log(medico)
-    const query = `select horario from pessoa p, medico m, agenda a where p.idPessoa = m.idMedico and m.especialidade like '${especialidade}' and p.nome = '${medico}' ORDER BY a.horario ASC;`
+    const query = `select data,horario from  agenda a WHERE a.medico_id = '${medico}' ORDER BY a.horario ASC;`
     pool.query(query, (err, res) => {
         if (err) {
             throw err
@@ -75,7 +75,7 @@ const getConsultasDoPaciente = (req, resp) => {
 
 // added 13/03 - OK
 const getAgendamentosPacientes = (req, resp) => {
-    const query = `select a.data as DIA, a.horario as HORA, a.nome as PACIENTE, m.especialidade, p.nome as MEDICO, a.email as EMAIL, a.telefone as TELEFONE from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.medico_id = m.idmedico ORDER BY a.data ASC;`
+    const query = `select a.data as DIA, a.horario as HORA, a.nome as PACIENTE, m.especialidade,m.idmedico, p.nome as MEDICO, a.email as EMAIL, a.telefone as TELEFONE from agenda a, pessoa p, medico m  where a.medico_id = p.idpessoa and a.medico_id = m.idmedico ORDER BY a.data ASC;`
     pool.query(query, (err, res) => {
         if (err) {
             throw err

@@ -53,7 +53,7 @@ router
 
 router
     .route('/agendaDoMedico')
-    .get(dbAgenda.getHorariosOcupados)
+    .post(dbAgenda.getHorariosOcupados)
 
 router
     .route('/agenda')
