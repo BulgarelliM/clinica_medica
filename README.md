@@ -56,7 +56,7 @@ A Backend do aplicativo necessita de [Node.js](https://nodejs.org/) v.10 ou mais
 Abra o terminal na pasta do projeto principal.
 
 ```sh
-cd backend
+cd server
 npm i
 nodemon
 ```
@@ -64,10 +64,9 @@ nodemon
 Após isso a parte de backend estará executando neste terminal em servidor local.
 
 ### Frontend
-Para o Frontend é usado o [React](https://pt-br.reactjs.org/). É necessário abrir outro terminal.
+Para o Frontend é usado o [React](https://pt-br.reactjs.org/). É necessário abrir outro terminal na pasta principal do front.
 
 ```sh
-cd frontend\my-app
 npm i
 npm start
 ```
