@@ -33,7 +33,7 @@
 </p>
 
 <p align="center">
-  <img src="https://i.ibb.co/g7L8X2W/sublogo.png" />
+  <img src="https://github.com/hobbitx/EngSoft_TP2/blob/main/src/imagens/logoicon.svg" width="200px"/>
 </p>
 
 <hr style="border:1px  solid blue"> </hr>
